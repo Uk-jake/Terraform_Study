@@ -27,7 +27,7 @@ resource "aws_route_table" "rt" {
     vpc_id = aws_vpc.vpc.id
 
     route{
-        cidr_block="0.0.0.0/16"
+        cidr_block="0.0.0.0/0"
         gateway_id = aws_internet_gateway.igw.id
     }
 
@@ -88,5 +88,49 @@ resource "aws_security_group" "sg" {
     # 이름 설정
     tags = {
         Name = "my-vpc-sg"
+    }
+}
+
+# 9. 개인키 생성
+resource "tls_private_key" "my_key" {
+    algorithm = "RSA"
+    rsa_bits = 2048
+}
+
+# 10. 개인키를 활용한 키페어 생성
+resource "aws_key_pair" "my_key" {
+    key_name = "my_key" # 키페어 이름
+    public_key = tls_private_key.my_key.public_key_openssh # 공개키
+}
+
+# 10. 로컬에 키페어 파일 생성
+resource "local_file" "private_key" {
+    content = tls_private_key.my_key.private_key_pem
+    filename = "${path.module}/my_key.pem" # 현재 디렉토리에 키페어 저장
+}
+
+# 11. Public 서브넷에 EC2 인스턴스 생성
+resource "aws_instance" "ec2" {
+    ami = "ami-042e76978adeb8c48"
+    instance_type = "t2.micro"
+    key_name = aws_key_pair.my_key.key_name
+    subnet_id = aws_subnet.public_subnet.id
+    vpc_security_group_ids = [aws_security_group.sg.id]
+    availability_zone = "ap-northeast-2a"
+
+    tags = {
+        Name = "my-ec2-instance-terraform"
+    }
+}
+
+# 12. EC2 인스턴스에 Elastic IP 할당
+# Elastic IP 란?
+# EC2 인스턴스에 고정된 퍼블릭 IP 주소를 할당하는 서비스
+resource "aws_eip" "eip" {
+    instance = aws_instance.ec2.id
+    vpc = true
+
+    tags = {
+        Name = "my-eip"
     }
 }
