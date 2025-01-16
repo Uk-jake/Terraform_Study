@@ -128,7 +128,7 @@ resource "aws_instance" "ec2" {
 # EC2 인스턴스에 고정된 퍼블릭 IP 주소를 할당하는 서비스
 resource "aws_eip" "eip" {
     instance = aws_instance.ec2.id
-    vpc = true
+    # vpc = true
 
     tags = {
         Name = "my-eip"
