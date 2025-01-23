@@ -12,6 +12,15 @@ resource "aws_security_group" "allow_ssh" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 
+    # 들어오는 모든 트래픽 허용
+    ingress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+
+    }
+
     # 나가는 트래픽을 허용
     egress {
         from_port = 0

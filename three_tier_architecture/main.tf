@@ -9,6 +9,7 @@ provider "aws" {
 # VPC 모듈 생성
 module "vpc" {
     source = "./modules/vpc" # VPC 모듈의 경로
+    nat_instance_network_interface_id = module.ec2.nat_instance_network_interface_id # ec2 모듈에서 생성된 nat_instance_network_interface_id를 VPC 모듈에 전달
     
 }
 
@@ -16,7 +17,9 @@ module "vpc" {
 module "subnet"{
     source = "./modules/subnet" # subnet 모듈의 경로
     vpc_id = module.vpc.vpc_id # VPC 모듈에서 생성된 vpc_id를 subnet 모듈에 전달
+
     route_table_id = module.vpc.route_table_id # VPC 모듈에서 생성된 route_table_id를 subnet 모듈에 전달
+    route_table_id1 = module.vpc.route_table_id1 # VPC 모듈에서 생성된 route_table_id1를 subnet 모듈에 전달
 }
 
 # security_group 모듈 생성

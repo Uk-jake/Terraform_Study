@@ -56,14 +56,14 @@ resource "aws_route_table_association" "public_2"{
     route_table_id = var.route_table_id
 }
 
-# # private sunbet 1과 라우트 테이블 연결
-# resource "aws_route_table_association" "private_1"{
-#     subnet_id = aws_subnet.private_1.id
-#     route_table_id = var.route_table_id
-# }
+# private sunbet 1과 라우트 테이블 연결
+resource "aws_route_table_association" "private_1"{
+    subnet_id = aws_subnet.private1.id
+    route_table_id = var.route_table_id1
+}
 
-# # private sunbet 2과 라우트 테이블 연결
-# resource "aws_route_table_association" "private_2"{
-#     subnet_id = aws_subnet.private_2.id
-#     route_table_id = var.route_table_id
-# }
+# private sunbet 2과 라우트 테이블 연결
+resource "aws_route_table_association" "private_2"{
+    subnet_id = aws_subnet.private2.id
+    route_table_id = var.route_table_id1
+}

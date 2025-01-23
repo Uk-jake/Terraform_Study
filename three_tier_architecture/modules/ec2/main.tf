@@ -14,7 +14,7 @@ resource "aws_instance" "ec2" {
 
 # nat instance 생성
 resource "aws_instance" "nat_instance"{
-    ami = "ami-01c05ba56d996a2cf"
+    ami = "ami-0c2d3e23e757b5d84"
     instance_type = "t2.micro"
     subnet_id = var.public_subnet_ids[1]
     vpc_security_group_ids = [var.security_group_id]

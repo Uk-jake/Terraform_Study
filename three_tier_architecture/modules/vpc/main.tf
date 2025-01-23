@@ -32,3 +32,21 @@ resource "aws_route_table" "main" {
     Name = "my-route-table" # 라우팅 테이블의 이름
   }
 }
+
+# 라우트 테이블 생성 - NAT instance
+resource "aws_route_table" "main1"{
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "my-route-table-nat"
+  }
+}
+
+
+resource "aws_route" "main" {
+
+  route_table_id = aws_route_table.main1.id
+  destination_cidr_block = "0.0.0.0/0"
+  network_interface_id = var.nat_instance_network_interface_id
+
+}
