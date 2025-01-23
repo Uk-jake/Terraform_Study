@@ -6,7 +6,7 @@ resource "aws_vpc" "main" {
   # enable_dns_hostnames = true
   
   tags = {
-    Name = "my-vpc" #var.vpc_name # VPC의 이름
+    Name = "main-vpc" #var.vpc_name # VPC의 이름
   }
 }
 
