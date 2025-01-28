@@ -1,5 +1,5 @@
-variable "vpc_id"{}
+variable "vpc_id" {}
 
-variable "route_table_id"{}
+variable "route_table_id" {}
 
-variable "route_table_id1"{}
+variable "route_table_id1" {}

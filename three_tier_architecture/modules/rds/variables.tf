@@ -1,35 +1,35 @@
 # DB 이름
 variable "db_name" {
   description = "The name of the database to create"
-  type       = string
+  type        = string
 }
 
 # DB 사용자 이름
 variable "username" {
   description = "The username for the database"
-  type       = string
+  type        = string
 }
 
 # DB 비밀번호
 variable "password" {
   description = "The password for the database"
-  type       = string
-  sensitive  = true
+  type        = string
+  sensitive   = true
 
 }
 
 # 인스턴스 클래스
 variable "instance_class" {
-    description = "The instance class to use"
-    type        = string
-    default     = "db.t3.micro"
+  description = "The instance class to use"
+  type        = string
+  default     = "db.t3.micro"
 }
 
 # 스토리지 크기
 variable "allocated_storage" {
-    description = "The amount of storage to allocate"
-    type        = number
-    default     = 20
+  description = "The amount of storage to allocate"
+  type        = number
+  default     = 20
 }
 
 # 보안 그룹 ID
