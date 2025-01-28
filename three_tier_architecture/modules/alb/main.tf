@@ -43,12 +43,12 @@ resource "aws_lb_target_group" "this" {
         unhealthy_threshold = 2
     }
 
-    # stickiness {
-    #    type = "lb_cookie"
-    #    cookie_duration = 86400 # 1 day
-    #     # target group stickiness 활성화 여부
-    #     enabled = false
-    # }
+    stickiness {
+       type = "lb_cookie"
+       cookie_duration = 86400 # 1 day
+        # target group stickiness 활성화 여부
+        # enabled = false
+    }
 }
 
 # alb 리스너 생성

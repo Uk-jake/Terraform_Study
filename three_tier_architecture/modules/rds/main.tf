@@ -9,8 +9,8 @@ resource "aws_db_instance" "this" {
   db_subnet_group_name   = aws_db_subnet_group.this.name # DB 서브넷 그룹 이름 설정
 
   # DB 인스턴스를 삭제하기 전에 최종 스냅샷을 생성해야 한다는 것을 의미!! (추가 영상)
-#   skip_final_snapshot       = true                            # 최종 스냅샷 생성을 건너뜀
-#   final_snapshot_identifier = "${var.db_name}-final-snapshot" # 최종 스냅샷 식별자 설정
+  skip_final_snapshot       = true                            # 최종 스냅샷 생성을 건너뜀
+  final_snapshot_identifier = "${var.db_name}-final-snapshot" # 최종 스냅샷 식별자 설정
 }
 
 resource "aws_db_subnet_group" "this" {
