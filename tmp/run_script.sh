@@ -2,16 +2,16 @@
 set -e  # 스크립트 실행 중 오류 발생 시 종료
 
 # 실행 중인 JAR 프로세스 종료
-echo "Checking for running application..."
-RUNNING_JAR=$(ps -ef | grep demo-0.0.1-SNAPSHOT.jar | grep -v grep | awk '{print $2}')
+# echo "Checking for running application..."
+# RUNNING_JAR=$(ps -ef | grep demo-0.0.1-SNAPSHOT.jar | grep -v grep | awk '{print $2}')
 
-if [ -n "$RUNNING_JAR" ]; then
-  echo "Found running application with PID: $RUNNING_JAR. Stopping it..."
-  kill -9 "$RUNNING_JAR"
-  echo "Application stopped."
-else
-  echo "No running application found."
-fi
+# if [ -n "$RUNNING_JAR" ]; then
+#   echo "Found running application with PID: $RUNNING_JAR. Stopping it..."
+#   kill -9 "$RUNNING_JAR"
+#   echo "Application stopped."
+# else
+#   echo "No running application found."
+# fi
 
 # Java 설치 확인 및 설치
 if ! java --version &> /dev/null; then

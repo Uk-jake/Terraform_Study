@@ -13,3 +13,9 @@ variable "instance_type" {
   type        = string
   default     = "t2.micro"
 }
+
+
+variable "security_group_id" {
+  description = "The security group ID for the launch template"
+  type        = string
+}

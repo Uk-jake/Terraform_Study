@@ -1,5 +1,11 @@
 # main.tf란
 # Terraform의 설정 파일로, Terraform이 실행될 때 가장 먼저 읽는 파일.
+terraform {
+  # Terraform 버전 설정
+  required_version = ">= 1.0.0, < 2.0.0"
+  
+}
+
 
 # aws provider 설정
 provider "aws" {
@@ -81,9 +87,6 @@ module "auto_scaling" {
   private_subnet_ids      = module.subnet.private_subnet_ids               # subnet 모듈에서 생성된 private_subnet_ids를 auto_scaling 모듈에 전달
   web1_launch_template_id = module.launch_template.web1_launch_template_id # launch_template 모듈에서 생성된 web1_launch_template_id를 auto_scaling 모듈에 전달
   aws_lb_target_group     = module.alb.aws_lb_target_group_arn             # alb 모듈에서 생성된 aws_lb_target_group_arn를 auto_scaling 모듈에 전달   
-
-
-
 }
 
 # launch template 모듈 생성
@@ -92,4 +95,5 @@ module "launch_template" {
   key_name           = module.key_pair.key_name    # key_pair 모듈에서 생성된 key_name을 launch_template 모듈에 전달
   instance_type      = "t2.micro"                  # 인스턴스 유형
   source_instance_id = module.ec2.web1_instance_id # ec2 모듈에서 생성된 web1_instance_id를 launch_template 모듈에 전달
+  security_group_id  = module.security_group.security_group_id # security_group 모듈에서 생성된 security_group_id를 launch_template 모듈에 전달
 }

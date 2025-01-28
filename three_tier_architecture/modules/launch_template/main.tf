@@ -20,6 +20,8 @@ resource "aws_launch_template" "web1_launch_template" {
   instance_type = var.instance_type
   key_name      = var.key_name
 
+  security_group_names = [var.security_group_id]
+
   # user data 설정
   # user data는 EC2 인스턴스가 시작될 때 실행할 스크립트를 정의한다.
   # base64encode 함수를 사용하여 스크립트를 base64로 인코딩한다.
