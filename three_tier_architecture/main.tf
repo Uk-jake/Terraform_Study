@@ -42,3 +42,15 @@ module "ec2" {
     security_group_id = module.security_group.security_group_id # subnet 모듈에서 생성된 security_group_id를 ec2 모듈에 전달
     key_name = module.key_pair.key_name # subnet 모듈에서 생성된 key_name을 ec2 모듈에 전달
 }
+
+# s3 모듈 생성
+module "s3" {
+    source = "./modules/s3" # s3 모듈의 경로
+    bucket_name = "my-unique-bucket-name-jake" # s3 버킷 이름
+    bucket_acl = "private" # s3 버킷 ACL
+}
+
+# rds 모듈 생성
+# module "rds" {
+
+# }
