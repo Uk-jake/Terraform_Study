@@ -74,3 +74,22 @@ module "alb" {
     ]
 
 }
+
+# auto scaling 모듈 생성
+module "auto_scaling" {
+    source = "./modules/auto_scaling" # auto_scaling 모듈의 경로
+    private_subnet_ids = module.subnet.private_subnet_ids # subnet 모듈에서 생성된 private_subnet_ids를 auto_scaling 모듈에 전달
+    web1_launch_template_id = module.launch_template.web1_launch_template_id # launch_template 모듈에서 생성된 web1_launch_template_id를 auto_scaling 모듈에 전달
+    aws_lb_target_group = module.alb.aws_lb_target_group_arn # alb 모듈에서 생성된 aws_lb_target_group_arn를 auto_scaling 모듈에 전달   
+
+
+
+}
+
+# launch template 모듈 생성
+module "launch_template" {
+    source = "./modules/launch_template" # launch_template 모듈의 경로
+    key_name = module.key_pair.key_name # key_pair 모듈에서 생성된 key_name을 launch_template 모듈에 전달
+    instance_type = "t2.micro" # 인스턴스 유형
+    source_instance_id = module.ec2.web1_instance_id # ec2 모듈에서 생성된 web1_instance_id를 launch_template 모듈에 전달
+}
