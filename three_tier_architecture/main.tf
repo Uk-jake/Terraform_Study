@@ -51,6 +51,11 @@ module "s3" {
 }
 
 # rds 모듈 생성
-# module "rds" {
-
-# }
+module "rds" {
+    source = "./modules/rds" # rds 모듈의 경로
+    db_name = "mydatabase" # RDS 데이터베이스 이름
+    username = "postgres" # RDS 데이터베이스 사용자 이름
+    password = "test1234"   # RDS 데이터베이스 비밀번호
+    vpc_security_group_ids = [module.security_group.security_group_id] # RDS 데이터베이스 보안 그룹 ID
+    subnet_ids = module.subnet.private_subnet_ids # RDS 데이터베이스 서브넷 ID
+}
