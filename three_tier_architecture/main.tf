@@ -59,3 +59,18 @@ module "rds" {
     vpc_security_group_ids = [module.security_group.security_group_id] # RDS 데이터베이스 보안 그룹 ID
     subnet_ids = module.subnet.private_subnet_ids # RDS 데이터베이스 서브넷 ID
 }
+
+# alb 모듈 생성
+module "alb" {
+    source = "./modules/alb" # alb 모듈의 경로
+    vpc_id = module.vpc.vpc_id # VPC 모듈에서 생성된 vpc_id를 alb 모듈에 전달
+    subnet_ids = module.subnet.public_subnet_ids # subnet 모듈에서 생성된 public_subnet_ids를 alb 모듈에 전달
+    security_group_id = [module.security_group.security_group_id] # security_group 모듈에서 생성된 security_group_id를 alb 모듈에 전달
+    
+    # target group 생성
+    target_instance_ids =[
+        module.ec2.web1_instance_id,
+        module.ec2.web2_instance_id
+    ]
+
+}
